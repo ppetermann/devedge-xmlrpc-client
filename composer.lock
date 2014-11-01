@@ -52,16 +52,16 @@
         },
         {
             "name": "devedge/xmlrpc-common",
-            "version": "0.2.2",
+            "version": "0.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ppetermann/devedge-xmlrpc-common.git",
-                "reference": "5089a75b788a2e4ce45a9541fb01db2bcd6ad8f2"
+                "reference": "fab61b7f8829e11adf96b6b8885898f1f4327cb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ppetermann/devedge-xmlrpc-common/zipball/5089a75b788a2e4ce45a9541fb01db2bcd6ad8f2",
-                "reference": "5089a75b788a2e4ce45a9541fb01db2bcd6ad8f2",
+                "url": "https://api.github.com/repos/ppetermann/devedge-xmlrpc-common/zipball/fab61b7f8829e11adf96b6b8885898f1f4327cb9",
+                "reference": "fab61b7f8829e11adf96b6b8885898f1f4327cb9",
                 "shasum": ""
             },
             "require-dev": {
@@ -84,7 +84,7 @@
                 }
             ],
             "description": "lib to be used by devedge/xmlrpc-server and devedge/xmlrpc-client",
-            "time": "2014-09-27 15:00:33"
+            "time": "2014-11-01 22:45:46"
         },
         {
             "name": "guzzlehttp/guzzle",
