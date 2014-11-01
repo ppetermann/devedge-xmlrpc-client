@@ -3,7 +3,7 @@ namespace Devedge\XmlRpc;
 
 use Devedge\Log\NoLog;
 use Devedge\XmlRpc\Client\XmlRpcBuilder;
-use Devedge\XmlRpc\Common\XmlRpcParser;
+use Devedge\XmlRpc\Client\XmlRpcParser;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
@@ -37,14 +37,12 @@ class Client implements LoggerAwareInterface
     }
 
     /**
-     * @todo add fault / error handling
-     * @todo add logging
-     * @todo add cache
+     * @todo add caching (or maybe in an own client?)
      * @param string $method
      * @param array $arguments
      * @return array
      */
-    public function invokeRpcCall($method, $arguments)
+    public function invokeRpcCall($method, $arguments = [])
     {
         if (!is_null($this->namespace)) {
             $method = $this->namespace . '.' . $method;
@@ -53,6 +51,11 @@ class Client implements LoggerAwareInterface
         $body = XmlRpcBuilder::createRequest($method, $arguments);
 
         $guzzle = new \GuzzleHttp\Client();
+
+        $this->getLogger()->info("sending request for $method to {$this->url}");
+        $this->getLogger()->debug(
+            "sending request for $method to {$this->url}, with parameters: " . print_r($arguments, true)
+        );
 
         $response = $guzzle->post(
             $this->url,
@@ -64,10 +67,15 @@ class Client implements LoggerAwareInterface
                 ]
             ]
         );
-        
+
+        // if we have a fault, we will throw an exception
+        if ($response->xml()->fault->count() > 0) {
+            $this->logger->warning("serverside error occured, details: " . $response->getBody());
+            throw XmlRpcParser::parseFault($response->xml()->fault);
+        }
+
         // responses always have only one param
         return array_shift(XmlRpcParser::parseParams($response->xml()->params));
-
     }
 
 
