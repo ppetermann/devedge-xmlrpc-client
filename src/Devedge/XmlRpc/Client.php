@@ -58,11 +58,13 @@ class Client implements LoggerAwareInterface
             $this->url,
             [
                 'body' => $body,
-                'User-Agent' => 'Devedge\XmlRpc\Client/' .self::$version,
-                'Content-Type' => 'text/xml'
+                'headers' => [
+                    'User-Agent' => 'Devedge\XmlRpc\Client/' .self::$version,
+                    'Content-Type' => 'text/xml'
+                ]
             ]
         );
-
+        
         // responses always have only one param
         return array_shift(XmlRpcParser::parseParams($response->xml()->params));
 

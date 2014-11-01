@@ -18,9 +18,10 @@ class XmlRpcBuilder extends \Devedge\XmlRpc\Common\XmlRpcBuilder
         $params = $request->addChild("params");
         foreach ($args as $argument) {
             $param = $params->addChild("param");
+            $value = $param->addChild("value");
             $data = static::typeByGuess($argument);
-            $param->addChild($data->getName());
-            $param->{$data->getName()} = $data;
+            $value->addChild($data->getName());
+            $value->{$data->getName()} = $data;
         }
 
         return $request->asXML();
