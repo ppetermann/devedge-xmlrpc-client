@@ -17,7 +17,7 @@ class Client implements LoggerAwareInterface
     /**
      * @var string Version string (to be updated by RMT, dont change manually)
      */
-    public static $version = "0.1.0";
+    public static $version = "0.2.0";
 
     /**
      * @var
