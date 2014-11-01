@@ -37,7 +37,7 @@ class Client implements LoggerAwareInterface
     }
 
     /**
-     * @todo add caching (or maybe in an own client?)
+     * invoke a call to the RPC server
      * @param string $method
      * @param array $arguments
      * @return array
